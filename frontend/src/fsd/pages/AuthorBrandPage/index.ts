@@ -1,0 +1,1 @@
+export { AuthorBrandPage } from "./AuthorBrandPage";

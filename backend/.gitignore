@@ -1,0 +1,10 @@
+# Backend-local ignores (root .gitignore also applies)
+
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.log
+LOGGING.LOG
+.env
+.env.local

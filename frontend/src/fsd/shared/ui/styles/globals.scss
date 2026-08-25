@@ -1,0 +1,51 @@
+body {
+    background-color: var(--bg-color);
+}
+
+svg {
+    height: 100%;
+    width: 100%;
+}
+
+a {
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 28px;
+    color: var(--title-color);
+    font-weight: 700;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+h3 {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+h5 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+span {
+    font-size: 16px;
+}
+
+input,
+textarea {
+    font-size: 16px;
+
+    &::placeholder {
+        color: var(--placeholder-color);
+    }
+}

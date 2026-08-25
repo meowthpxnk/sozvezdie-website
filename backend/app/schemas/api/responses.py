@@ -1,0 +1,562 @@
+from datetime import date, datetime
+from typing import Type
+
+from fastapi import Form
+from inspect import Parameter, signature
+
+from pydantic import BaseModel, Field, field_validator
+
+from app.schemas.api.delivery import OrderDeliveryAddressPayload
+from app.schemas.database import (
+    AppTheme,
+    ModerationStatus,
+    OrderStatus,
+    PaymentMethod,
+    DeliveryMethod,
+    UserRoleEnum,
+)
+
+
+# class FormBaseModel(BaseModel):
+#     @classmethod
+#     def as_form(cls: Type["FormBaseModel"]):
+#         new_params = []
+
+#         for field_name, model_field in cls.model_fields.items():
+#             field_info = model_field
+
+#             default = (
+#                 Form(...)
+#                 if field_info.is_required()
+#                 else Form(field_info.default)
+#             )
+
+#             new_params.append(
+#                 Parameter(
+#                     field_name,
+#                     Parameter.POSITIONAL_ONLY,
+#                     default=default,
+#                     annotation=field_info.annotation,
+#                 )
+#             )
+
+#         async def _as_form(**data):
+#             return cls(**data)
+
+#         sig = signature(_as_form).replace(parameters=new_params)
+#         _as_form.__signature__ = sig
+
+#         return _as_form
+
+
+class AuthorResponse(BaseModel):
+    id: str
+    name: str
+    avatarImage: str | None
+    bannerImage: str | None
+    description: str | None
+
+
+class UserSettingsResponse(BaseModel):
+    id: int
+    user_id: int
+    theme: AppTheme
+    ava_path: str | None
+
+
+class SellerCardResponse(BaseModel):
+    id: str
+    name: str
+    desc: str
+    bannerImage: str | None
+    avatarImage: str | None
+    tiktokUrl: str | None = None
+    telegramChannelUrl: str | None = None
+    vkUrl: str | None = None
+    moderationStatus: ModerationStatus = ModerationStatus.APPROVED
+    createdAt: datetime | None = None
+
+
+class AuthorBrandModerationResponse(BaseModel):
+    id: str
+    createdAt: datetime
+    actionType: str
+    status: ModerationStatus
+    title: str
+    details: list[str]
+    moderatorComment: str | None = None
+
+
+class AuthorDashboardResponse(BaseModel):
+    seller_card: SellerCardResponse | None = None
+    products_count: int = 0
+    stock_total: int = 0
+    pending_count: int = 0
+    approved_count: int = 0
+    rejected_count: int = 0
+
+
+class ProductCreateRequest(BaseModel):
+    name: str
+    price: int
+    description: str
+    authorId: str
+    stockCount: int
+
+
+class FandomResponse(BaseModel):
+    slug: str
+    title: str
+    isApproved: bool = False
+
+
+class CategoryResponse(BaseModel):
+    slug: str
+    title: str
+
+
+class CategoryCreateRequest(BaseModel):
+    title: str
+    slug: str
+
+
+class CategoryUpdateRequest(BaseModel):
+    title: str
+
+
+class SubcategoryResponse(BaseModel):
+    id: int
+    slug: str
+    title: str
+    categorySlug: str
+    authorId: str | None = None
+    isApproved: bool = False
+
+
+class SubcategoryCreateRequest(BaseModel):
+    title: str
+    slug: str
+
+
+class SubcategoryAdminCreateRequest(BaseModel):
+    title: str
+    slug: str
+    category_slug: str
+    is_approved: bool = True
+
+
+class SubcategoryUpdateRequest(BaseModel):
+    title: str
+    is_approved: bool | None = None
+
+
+class FandomCreateRequest(BaseModel):
+    title: str
+    slug: str
+
+
+class FandomAdminCreateRequest(BaseModel):
+    title: str
+    slug: str
+    is_approved: bool = True
+
+
+class FandomUpdateRequest(BaseModel):
+    title: str
+    is_approved: bool
+
+
+class ProductResponse(BaseModel):
+    id: str
+    name: str
+    price: int
+    description: str
+    images: list[str]
+    authorId: str
+    stockCount: int
+    categorySlug: str | None = None
+    subcategorySlug: str | None = None
+    fandomSlug: str | None = None
+    isAdult: bool = False
+
+
+class SellerProductResponse(ProductResponse):
+    moderationStatus: ModerationStatus
+    createdAt: datetime
+    moderatorComment: str | None = None
+    deletionRequestStatus: ModerationStatus | None = None
+    deletionRequestReason: str | None = None
+    deletionModeratorComment: str | None = None
+    categoryTitle: str | None = None
+    subcategoryTitle: str | None = None
+    fandomTitle: str | None = None
+    subcategoryIsApproved: bool | None = None
+    fandomIsApproved: bool | None = None
+
+
+class ProductDeletionRequestBody(BaseModel):
+    reason: str | None = None
+
+
+class ProductFacetCountItem(BaseModel):
+    slug: str
+    count: int
+
+
+class ProductFacetsResponse(BaseModel):
+    total: int
+    items: list[ProductFacetCountItem]
+
+
+class ProductsPageResponse(BaseModel):
+    items: list[ProductResponse]
+    nextCursorId: str | None
+    hasMore: bool
+
+
+class ProductBulkRequest(BaseModel):
+    ids: list[str]
+
+
+class InventoryResponse(BaseModel):
+    id: int
+    product_id: int
+    quantity: int
+
+
+class ProductImageResponse(BaseModel):
+    id: int
+    product_id: int
+    image_url: str
+
+
+class ProductAlternativeResponse(BaseModel):
+    id: int
+    product_id: int
+    alt_product_id: int
+
+
+class ProductModerationResponse(BaseModel):
+    id: int
+    product_id: int
+    moderator_id: int
+    status: ModerationStatus
+    comment: str
+    created_at: datetime
+    updated_at: datetime
+
+
+class ModerationFieldDiffResponse(BaseModel):
+    label: str
+    before: str
+    after: str
+    beforeImageUrl: str | None = None
+    afterImageUrl: str | None = None
+
+
+class ModerationProposalResponse(BaseModel):
+    id: str
+    createdAt: datetime
+    title: str
+    type: str
+    status: ModerationStatus
+    submittedBy: str
+    moderatedBy: str | None = None
+    moderationComment: str | None = None
+    previewImageUrl: str | None = None
+    previewBannerUrl: str | None = None
+    previewAvatarUrl: str | None = None
+    changes: list[ModerationFieldDiffResponse]
+
+
+class ModerationDecisionRequest(BaseModel):
+    status: ModerationStatus
+    comment: str | None = None
+
+
+class ModeratorCatalogProductDeleteRequest(BaseModel):
+    comment: str | None = None
+
+
+class ModerationEditResponse(BaseModel):
+    kind: str
+    proposal: ModerationProposalResponse
+    product: SellerProductResponse | None = None
+    brandName: str | None = None
+    brandDescription: str | None = None
+    avatarImage: str | None = None
+    bannerImage: str | None = None
+    tiktokUrl: str | None = None
+    telegramChannelUrl: str | None = None
+    vkUrl: str | None = None
+    actionType: str | None = None
+
+
+class CartItemResponse(BaseModel):
+    product_id: str
+    quantity: int
+
+
+class CartResponse(BaseModel):
+    items: list[CartItemResponse]
+
+
+class OrderResponse(BaseModel):
+    id: int
+    customer_id: int
+    status: OrderStatus
+
+
+class OrderItemResponse(BaseModel):
+    id: int
+    order_id: int
+    product_id: int
+    quantity: int
+    price_at_time: int
+
+
+class OrderLineItemResponse(BaseModel):
+    product_id: int
+    name: str
+    price_at_time: int
+    line_total: int
+    image: str | None
+    quantity: int
+
+
+class UserOrderResponse(BaseModel):
+    id: int
+    status: OrderStatus
+    payment_method: PaymentMethod
+    delivery_method: DeliveryMethod
+    items_total: int
+    delivery_cost: int
+    total: int
+    created_at: datetime
+    delivery_date: date | None = None
+    delivery_address_text: str | None = None
+    delivery_flat: str | None = None
+    cdek_pvz_code: str | None = None
+    cdek_pvz_address: str | None = None
+    payment_confirmation_url: str | None = None
+    items: list[OrderLineItemResponse]
+
+
+class CancelProviderResult(BaseModel):
+    status: str
+    message: str | None = None
+
+
+class CancelOrderResponse(BaseModel):
+    order: UserOrderResponse
+    cdek: CancelProviderResult
+    payment: CancelProviderResult
+
+
+class OrdersListResponse(BaseModel):
+    items: list[UserOrderResponse]
+
+
+class ModeratorOrderCustomerResponse(BaseModel):
+    id: int
+    username: str
+    full_name: str | None = None
+    email: str | None = None
+    phone: str | None = None
+
+
+class ModeratorOrderListItemResponse(UserOrderResponse):
+    customer: ModeratorOrderCustomerResponse
+
+
+class ModeratorOrderDetailResponse(ModeratorOrderListItemResponse):
+    cdek_order_uuid: str | None = None
+    cdek_error: str | None = None
+    yookassa_payment_id: str | None = None
+
+
+class ModeratorOrdersListResponse(BaseModel):
+    items: list[ModeratorOrderListItemResponse]
+    total: int
+
+
+class ModeratorOrderStatusUpdateRequest(BaseModel):
+    status: OrderStatus
+
+
+class CheckoutPaymentInitResponse(BaseModel):
+    checkout_id: int
+    payment_confirmation_url: str
+    total: int
+    already_paid: bool = False
+    order: UserOrderResponse | None = None
+
+
+class CheckoutCompleteResponse(BaseModel):
+    status: str
+    order: UserOrderResponse | None = None
+    message: str | None = None
+
+
+class PendingPaymentSyncItem(BaseModel):
+    checkout_id: int
+    status: str
+    cart_fingerprint: str | None = None
+    order_id: int | None = None
+    product_ids: list[int] = []
+    order: UserOrderResponse | None = None
+    payment_confirmation_url: str | None = None
+
+
+class SyncPendingPaymentsResponse(BaseModel):
+    items: list[PendingPaymentSyncItem]
+
+
+class ReviewResponse(BaseModel):
+    id: int
+    order_item_id: int
+    body: str
+    rating: int
+
+
+class MessageResponse(BaseModel):
+    detail: str
+
+
+class AdvertBannerResponse(BaseModel):
+    id: int
+    image: str
+    href: str
+    title: str
+
+
+class FaqItemResponse(BaseModel):
+    id: int
+    question: str
+    answer: str
+    isPublished: bool = False
+    sortOrder: int = 0
+
+
+class UserProfileUpdateRequest(BaseModel):
+    last_name: str | None = Field(default=None, max_length=128)
+    first_name: str | None = Field(default=None, max_length=128)
+    patronymic: str | None = Field(default=None, max_length=128)
+    email: str | None
+    phone: str | None
+
+    @field_validator("last_name", "first_name", "patronymic")
+    @classmethod
+    def strip_name_fields(cls, v: str | None) -> str | None:
+        if v is None:
+            return None
+        stripped = v.strip()
+        return stripped or None
+
+
+class UserProfileResponse(BaseModel):
+    id: int
+    username: str
+    last_name: str | None
+    first_name: str | None
+    patronymic: str | None
+    email: str | None
+    phone: str | None
+
+
+class MeResponse(UserProfileResponse):
+    role: str
+    one_c_author_id: str | None = None
+    is_blocked_without_1c: bool = False
+    age_confirmed: bool = False
+
+
+class AgeConfirmationResponse(BaseModel):
+    age_confirmed: bool = True
+
+
+class SuperAdminUserResponse(BaseModel):
+    id: int
+    username: str
+    role: UserRoleEnum
+    full_name: str | None
+    email: str | None
+    phone: str | None
+    is_super_moderator: bool = False
+    one_c_author_id: str | None = None
+    one_c_warning: str | None = None
+    has_seller_card: bool = False
+    seller_card_disabled: bool = False
+
+
+class SuperAdminAssignRoleRequest(BaseModel):
+    role: UserRoleEnum
+    one_c_author_id: str | None = None
+    delete_from_1c: bool = False
+    delete_shop: bool = False
+
+
+class SuperAdminAssignOneCRequest(BaseModel):
+    one_c_author_id: str = Field(..., min_length=1)
+
+
+class SuperAdminAuthorInviteRequest(BaseModel):
+    one_c_author_id: str = Field(..., min_length=1)
+
+
+class SuperAdminAuthorInviteResponse(BaseModel):
+    token: str
+
+
+class CreateUserRequest(BaseModel):
+    username: str
+    password: str
+    role: UserRoleEnum
+
+
+class CartAddRequest(BaseModel):
+    product_id: int
+    quantity: int
+
+
+class OrderCreateItemRequest(BaseModel):
+    product_id: int
+    quantity: int = Field(..., ge=1)
+
+
+class OrderCreateRequest(BaseModel):
+    payment_method: PaymentMethod
+    delivery_method: DeliveryMethod
+    delivery_cost: int = Field(default=0, ge=0)
+    delivery_date: date | None = None
+    address: OrderDeliveryAddressPayload | None = None
+    items: list[OrderCreateItemRequest] = Field(..., min_length=1)
+    checkout_session_id: str | None = Field(default=None, max_length=64)
+
+
+class FavouriteProductRequest(BaseModel):
+    product_id: str
+    liked: bool
+
+
+class FavouriteAuthorRequest(BaseModel):
+    author_id: str
+    liked: bool
+
+
+class FavouriteProductItemResponse(BaseModel):
+    product_id: str
+    created_at: datetime
+
+
+class FavouriteProductsResponse(BaseModel):
+    items: list[FavouriteProductItemResponse]
+
+
+class FavouriteAuthorItemResponse(BaseModel):
+    author_id: str
+    created_at: datetime
+
+
+class FavouriteAuthorsResponse(BaseModel):
+    items: list[FavouriteAuthorItemResponse]

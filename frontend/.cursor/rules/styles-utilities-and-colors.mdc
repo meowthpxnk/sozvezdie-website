@@ -1,0 +1,33 @@
+---
+description: Utility-first стили, переменные цветов и паттерны indent/типографики (shared/ui/styles)
+globs: src/fsd/shared/ui/styles/**/*.scss,src/fsd/widgets/**/*.{tsx,ts},src/main_pages/**/*.{tsx,ts}
+alwaysApply: false
+---
+
+# Стили: утилиты, цвета, типографика
+
+## Порядок применения
+
+1. Сначала классы из `src/fsd/shared/ui/styles/` — **`utilities.scss`**, **`globals.scss`**, **`ui.scss`**, **`ATOM.scss`**.
+2. **`styled-components`** — только для уникального вида, динамики (`$active`, проценты скроллбара), анимаций, того что неудобно классами.
+
+## Утилиты (переиспользовать системно)
+
+Примеры из практики проекта: `fill`, `fill-w`, `size-box`, размеры **`size-*` / `h-*`**, `cur-p`, **`b-rad-*`**, `flex`, `flex-r`, `flex-c`, `ai-c`, `jc-sb`, `pos-r`, `pos-a`, `grid`, **`grid-cols-1`**, `indent-box`, **`indent-list` + `int-*`**, `truncate`, **`ws-nw`**, **`fs-*`**, **`fw-*`**.
+
+Если один и тот же набор свойств повторяется — **добавить утилиту** в `utilities.scss` или атом в `ATOM.scss`, не копировать в styled.
+
+## Indent + gap
+
+- Для отступов между элементами в ряду чаще: **`indent-list int-8`** / **`int-12`** и токен `--indentation`.
+- Составной блок отступов: при необходимости класс в **`ATOM.scss`** с `@extend .indent-box` и `@extend .int-12` (например `.indent-box-int-12`), вместо ручного `gap: var(--indentation)` в styled там, где это тот же паттерн.
+
+## Цвета
+
+- **Не хардкодить** `#hex`, `rgb/rgba`, named colors в компонентах.
+- Все цвета — **CSS-переменные** в `src/fsd/shared/ui/styles/variables/main-colors.scss` (и связанные файлы); в компонентах только `var(--...)`.
+- При рефакторинге **каждого** файла страницы/виджета одновременно вычищать цветовой хардкод в затронутых файлах.
+
+## Типографика
+
+- Размеры и роли текста — через **глобальные классы и теги** (`globals.scss`, `ATOM.scss`): например `mcf`, `span-not-important`, `text-caption`, заголовки `h1`–`h5`, а не «голый» `font-size` в styled.
