@@ -14,9 +14,6 @@ def hash_secret(secret: str) -> str:
 
     secret_hash = binascii.hexlify(secret_hash)
 
-    print("SAVE SECRET", secret)
-    print("SAVE SECRET HASH", secret_hash)
-
     return (salt + secret_hash).decode("ascii")
 
 
@@ -29,10 +26,6 @@ def verify_secret(secret: str, secret_hash: str) -> None:
     )
 
     current_secret_hash = binascii.hexlify(current_secret_hash).decode("ascii")
-
-    print(secret)
-    print(current_secret_hash)
-    print(secret_hash)
 
     if not current_secret_hash == secret_hash:
         raise WrongSecret

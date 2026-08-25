@@ -60,6 +60,7 @@ COPY --chown=app:app ./app ./app
 COPY --chown=app:app ./config ./config
 COPY --chown=app:app ./static ./static
 COPY --chown=app:app ./jwt_keys ./jwt_keys
+COPY --chown=app:app ./scripts ./scripts
 COPY --chown=app:app ./run.py .
 COPY --chown=app:app ./entrypoint.sh .
 COPY --chown=app:app ./database ./database

@@ -11,6 +11,12 @@ Thumbs.db
 .env.*
 !.env.example
 !**/.env.example
+.test.env
+!**/.test.env.example
+
+# Crypto / JWT keys
+*.pem
+!**/jwt_keys/README.md
 
 # Logs
 *.log

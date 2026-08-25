@@ -28,14 +28,16 @@ docker compose up -d redis postgres rabbitmq minio minio-init
 
 ```bash
 cd backend
-cp .env.example .env                 # при необходимости поправьте значения
+cp .env.example .env                 # заполните секреты своими значениями
 poetry install
+poetry run python scripts/generate_jwt_keys.py
 poetry run python run.py
 ```
 
 Docker (prod-профиль):
 
 ```bash
+cp backend/.test.env.example backend/.test.env   # заполните секреты
 docker compose --profile prod up -d --build app worker
 ```
 
@@ -54,9 +56,13 @@ Docker:
 docker compose --profile frontend up -d --build frontend
 ```
 
-## Переменные окружения
+## Секреты
 
-- Backend: `backend/.env.example`, для Docker — `backend/.test.env`
-- Frontend: `frontend/.env.example` → `.env.local`
+Не коммитьте:
 
-Не коммитьте `.env` / `.env.local` и логи.
+- `.env`, `.env.local`, `backend/.test.env`
+- `backend/jwt_keys/*.pem` (генерируются локально / в entrypoint)
+
+Шаблоны без реальных ключей: `backend/.env.example`, `backend/.test.env.example`, `frontend/.env.example`.
+
+Если ключи уже попадали в git — перевыпустите их в кабинетах CDEK / DaData / YooKassa / VK.

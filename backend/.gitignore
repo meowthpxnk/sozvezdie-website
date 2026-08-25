@@ -8,4 +8,6 @@ venv/
 LOGGING.LOG
 .env
 .env.local
+.test.env
+*.pem
 test_data_images/
