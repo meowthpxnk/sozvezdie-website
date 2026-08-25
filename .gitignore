@@ -39,3 +39,6 @@ next-env.d.ts
 # Docker / local data
 postgres_data/
 minio_data/
+
+# Generated / downloaded seed assets (see backend/test_data.py)
+backend/test_data_images/
