@@ -1,0 +1,138 @@
+{
+  "sellerId": "kere",
+  "brand": {
+    "id": "brand-kere",
+    "sellerId": "kere",
+    "brandName": "KERE",
+    "brandDescription": "KERE создает яркие аксессуары и небольшие предметы декора, где смешивает графичные формы, смелые цвета и городские мотивы.",
+    "avatar": "https://placeholdpicsum.dev/photo/200/200?seed=author-1-avatar",
+    "banner": "https://placeholdpicsum.dev/photo/1280/500?seed=author-1-banner",
+    "updatedAt": "2026-05-08T00:25:42.282Z"
+  },
+  "products": [
+    {
+      "id": "1",
+      "sellerId": "kere",
+      "brandId": "brand-kere",
+      "name": "Брелок Крутой872",
+      "description": "Описание товара Брелок Крутой872.",
+      "price": 300,
+      "stockCount": 24,
+      "images": [
+        {
+          "id": "1-image-0",
+          "url": "https://ghostshelf.shop/api/uploads/products/photo1/29f0a7ba-2641-43d0-b277-12a2b41d9742/default.jpg?v=1769862262215"
+        },
+        {
+          "id": "1-image-1",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-1b"
+        },
+        {
+          "id": "1-image-2",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-1c"
+        }
+      ],
+      "coverImageId": "1-image-0",
+      "moderationStatus": "approved",
+      "updatedAt": "2026-05-08T00:25:42.281Z"
+    },
+    {
+      "id": "2",
+      "sellerId": "kere",
+      "brandId": "brand-kere",
+      "name": "Брелок Крутой872",
+      "description": "Описание товара Брелок Крутой872.",
+      "price": 300,
+      "stockCount": 15,
+      "images": [
+        {
+          "id": "2-image-0",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-2a"
+        },
+        {
+          "id": "2-image-1",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-2b"
+        },
+        {
+          "id": "2-image-2",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-2c"
+        }
+      ],
+      "coverImageId": "2-image-0",
+      "moderationStatus": "approved",
+      "updatedAt": "2026-05-08T00:25:42.282Z"
+    },
+    {
+      "id": "3",
+      "sellerId": "kere",
+      "brandId": "brand-kere",
+      "name": "Брелок Крутой872",
+      "description": "Описание товара Брелок Крутой872.",
+      "price": 300,
+      "stockCount": 3,
+      "images": [
+        {
+          "id": "3-image-0",
+          "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPIS_MT5gzSXgWzQQalTiDsxS2VCRIwpkBlQ&s"
+        },
+        {
+          "id": "3-image-1",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-3b"
+        },
+        {
+          "id": "3-image-2",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-3c"
+        }
+      ],
+      "coverImageId": "3-image-0",
+      "moderationStatus": "approved",
+      "updatedAt": "2026-05-08T00:25:42.282Z"
+    },
+    {
+      "id": "6",
+      "sellerId": "kere",
+      "brandId": "brand-kere",
+      "name": "Брелок Крутой872",
+      "description": "Описание товара Брелок Крутой872.",
+      "price": 300,
+      "stockCount": 30,
+      "images": [
+        {
+          "id": "6-image-0",
+          "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9YYh5Fk1u9VsWWr1MhkyQeOzeNbtnnMO96g&s"
+        },
+        {
+          "id": "6-image-1",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-6b"
+        },
+        {
+          "id": "6-image-2",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-6c"
+        },
+        {
+          "id": "6-image-3",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-6d"
+        },
+        {
+          "id": "6-image-4",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-6e"
+        },
+        {
+          "id": "6-image-5",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-6f"
+        },
+        {
+          "id": "6-image-6",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-6g"
+        },
+        {
+          "id": "6-image-7",
+          "url": "https://placeholdpicsum.dev/photo/800/800?seed=product-6h"
+        }
+      ],
+      "coverImageId": "6-image-0",
+      "moderationStatus": "approved",
+      "updatedAt": "2026-05-08T00:25:42.282Z"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+---
+description: Обязательный контекст рефакторинга main_pages и виджетов (тонкие страницы, reuse-first, минимум контейнеров)
+globs: src/main_pages/**/*.{tsx,ts},src/fsd/widgets/**/*.{tsx,ts}
+alwaysApply: false
+---
+
+# `main_pages` и `fsd/widgets`
+
+## Цель
+
+- `src/main_pages/*.tsx` — только **тонкая композиция** (импорты + сборка виджетов + минимальный glue state).
+- Вся разметка, поведение и стили — в `src/fsd/widgets/`.
+- **Минимум контейнеров**: не оборачивать «ради обёртки», избегать глубокой вложенности без необходимости.
+
+## Reuse-first (обязательный аудит перед новым компонентом)
+
+Перед созданием нового виджета/подкомпонента просмотреть существующее:
+
+- Базовые: `Header`, `ProductCard`, `CartItem`, `AuthorBanner`, `CatalogOverlay`, `SearchBar`, `SearchBarOverlay`, `ProductSearchPannel`.
+- Списки/лейауты: `LandingItemList`, `MarqueeListLayout`, `LandingBanner`.
+- Checkout: `CheckoutPage/*` (delivery, payment, comment, line items, summary).
+- Кнопки: `shared/ui/buttons` (`ProductLikeButton`, лайки авторов, +/- корзины и т.д.), если подходят по UX.
+
+Новый компонент создавать только если существующий **не покрывает** ответственность — кратко зафиксировать почему.
+
+## Дробление
+
+- Дробить на **мельчайшие осмысленные** части (галерея, thumb, scrollbar, lightbox, dots, карточка автора, ряд покупки), но не плодить «один div = один файл».
+- Повторяющуюся логику выносить в **model-хуки** рядом с виджетом (`model/use*.ts`), как для ProductPage (selection, lightbox, scrollbar).
+
+## Планы и todo
+
+- Если работаешь по плану с назначенными todo: **не редактировать файл плана**; статусы todo вести по процессу проекта.

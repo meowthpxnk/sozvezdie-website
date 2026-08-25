@@ -1,0 +1,184 @@
+*,
+::before,
+::after {
+    box-sizing: border-box;
+    border-width: 0;
+
+    border-color: currentcolor;
+    border-style: solid;
+    font-family: inherit;
+    scrollbar-width: none;
+}
+
+html {
+    width: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    position: relative;
+
+    font-family: Rubik, Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    overflow-y: auto;
+    overflow-x: hidden;
+    touch-action: pan-y pinch-zoom;
+
+    @media (min-width: 960px) {
+        overflow-y: scroll;
+        scrollbar-gutter: stable;
+    }
+    text-rendering: optimizespeed;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &:has(.no-scroll) {
+        overflow: hidden;
+    }
+}
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+    display: block;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+[hidden] {
+    display: none;
+}
+
+[disabled] {
+    pointer-events: none;
+    cursor: default;
+}
+
+button,
+[role="button"] {
+    cursor: pointer;
+}
+
+textarea {
+    resize: vertical;
+}
+
+ol,
+ul,
+menu {
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+}
+
+fieldset {
+    padding: 0;
+    margin: 0;
+}
+
+legend {
+    padding: 0;
+}
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+    margin: 0;
+}
+
+::-webkit-file-upload-button {
+    appearance: button;
+
+    font: inherit;
+}
+
+[type="search"] {
+    appearance: textfield;
+
+    outline-offset: -2px;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    padding: 0;
+    margin: 0;
+    border: none;
+
+    color: inherit;
+    font: inherit;
+
+    background-color: transparent;
+    background-image: none;
+    appearance: button;
+}
+
+a {
+    color: inherit;
+    text-decoration: unset;
+}
+
+input {
+    padding: 0;
+    margin: 0;
+
+    outline: none;
+    background: none;
+}
+
+:focus-visible {
+    outline: none;
+}
+
+::placeholder {
+    opacity: 1;
+}
+
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    width: auto;
+    height: auto;
+    // all: unset;
+    border: none;
+}

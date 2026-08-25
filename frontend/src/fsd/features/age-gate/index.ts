@@ -1,0 +1,1 @@
+export { AgeGateModal } from "./AgeGateModal";

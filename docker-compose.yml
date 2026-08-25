@@ -1,0 +1,139 @@
+version: "3.9"
+
+# Root compose for the sozvezdie monorepo.
+# Infra services always available; app/worker/frontend behind Compose profiles.
+
+services:
+  app:
+    container_name: sozvezdie-api
+    profiles: ["prod"]
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - postgres
+      - rabbitmq
+    env_file:
+      - ./backend/.test.env
+    environment:
+      - AMQP_URL=amqp://guest:guest@rabbitmq:5672/
+    networks:
+      - nginx_appnet
+
+  worker:
+    container_name: sozvezdie-worker
+    profiles: ["prod"]
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+      - rabbitmq
+    env_file:
+      - ./backend/.test.env
+    environment:
+      - AMQP_URL=amqp://guest:guest@rabbitmq:5672/
+    entrypoint: bash -lc "alembic upgrade head && python -m app.workers.integration_worker"
+    restart: unless-stopped
+    networks:
+      - nginx_appnet
+
+  frontend:
+    container_name: sozvezdie-frontend
+    profiles: ["frontend"]
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://constellationshop.ru/api}
+        NEXT_PUBLIC_MEDIA_URL: ${NEXT_PUBLIC_MEDIA_URL:-https://constellationshop.ru/minio}
+        NEXT_PUBLIC_MEDIA_BUCKET_URL: ${NEXT_PUBLIC_MEDIA_BUCKET_URL:-https://constellationshop.ru/minio/images-bucket}
+        NEXT_PUBLIC_VKID_APP_ID: ${NEXT_PUBLIC_VKID_APP_ID:-54614063}
+        NEXT_PUBLIC_VKID_REDIRECT_URL: ${NEXT_PUBLIC_VKID_REDIRECT_URL:-https://constellationshop.ru}
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+    networks:
+      - nginx_appnet
+
+  redis:
+    container_name: sozvezdie-redis
+    image: redis:7-alpine
+    ports:
+      - "4001:6379"
+    restart: unless-stopped
+    networks:
+      - nginx_appnet
+
+  postgres:
+    container_name: sozvezdie-postgres
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: app_db
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: app_password
+    ports:
+      - "4002:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - nginx_appnet
+
+  rabbitmq:
+    container_name: sozvezdie-rabbitmq
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "4005:5672"
+      - "4006:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    restart: unless-stopped
+    networks:
+      - nginx_appnet
+
+  minio:
+    container_name: sozvezdie-minio
+    image: quay.io/minio/minio:RELEASE.2023-11-01T01-57-10Z-cpuv1
+    ports:
+      - "4003:9000"
+      - "4004:9001"
+    volumes:
+      - minio_data:/data
+    environment:
+      MINIO_ROOT_USER: minio99
+      MINIO_ROOT_PASSWORD: minio123
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+    networks:
+      - nginx_appnet
+
+  minio-init:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 5;
+      mc alias set local http://minio:9000 minio99 minio123;
+      mc mb --ignore-existing local/images-bucket;
+      mc anonymous set download local/images-bucket;
+      exit 0;
+      "
+    networks:
+      - nginx_appnet
+
+volumes:
+  postgres_data:
+  minio_data:
+
+networks:
+  nginx_appnet:
+    external: true

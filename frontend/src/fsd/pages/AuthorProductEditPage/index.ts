@@ -1,0 +1,1 @@
+export { AuthorProductEditPage } from "./AuthorProductEditPage";

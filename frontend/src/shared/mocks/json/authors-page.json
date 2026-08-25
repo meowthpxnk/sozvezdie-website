@@ -1,0 +1,25 @@
+{
+  "authors": [
+    {
+      "id": "1",
+      "name": "KERE",
+      "avatarImageSrc": "https://placeholdpicsum.dev/photo/200/200?seed=author-1-avatar",
+      "bannerImageSrc": "https://placeholdpicsum.dev/photo/1280/500?seed=author-1-banner",
+      "description": "KERE создает яркие аксессуары и небольшие предметы декора, где смешивает графичные формы, смелые цвета и городские мотивы."
+    },
+    {
+      "id": "2",
+      "name": "LARGO",
+      "avatarImageSrc": "https://photobooth.cdn.sports.ru/preset/message/b/76/3869ee28a4ac1a100a192d8ba2bfd.png?f=webp&q=90&s=2x&w=730",
+      "bannerImageSrc": "https://u.cubeupload.com/KawaiiSocks/674largowallpaper2deskt.jpg",
+      "description": "МООООЙ ОСТРОВ В ОКЕАНЕ АНЕ АНЕ АНЕ!"
+    },
+    {
+      "id": "3",
+      "name": "KERES",
+      "avatarImageSrc": "https://placeholdpicsum.dev/photo/200/200?seed=author-3-avatar",
+      "bannerImageSrc": "https://placeholdpicsum.dev/photo/1280/500?seed=author-3-banner",
+      "description": "KERES развивает экспериментальное направление бренда: ограниченные серии, необычные материалы и акцент на деталях ручной работы."
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+.small-action-btn {
+    border: none;
+    &:disabled {
+        opacity: 0.5;
+    }
+
+    &:hover {
+        border-color: var(--main-color);
+        color: var(--color);
+        background-color: var(--main-color);
+        z-index: 1;
+    }
+
+    &.delete {
+        background-color: var(--error-color);
+        color: var(--color-reverse);
+        border-color: var(--error-color-darker);
+
+        .tooltip {
+            background-color: var(--error-color);
+        }
+
+        &:hover {
+            border-color: var(--error-color-darker);
+            color: var(--color-reverse);
+            background-color: var(--error-color-lighter);
+        }
+
+        &.quick {
+            background: none;
+            color: var(--error-color-darker);
+            &:hover {
+                background: none;
+                color: var(--error-color);
+            }
+        }
+    }
+
+    &:hover {
+        .tooltip {
+            opacity: 100%;
+            color: var(--color);
+            top: -16px;
+        }
+    }
+
+    .tooltip {
+        z-index: 1;
+        opacity: 0%;
+        position: absolute;
+        top: 0px;
+        pointer-events: none;
+        background-color: var(--main-color);
+        color: #111;
+        padding: 0 10px;
+        border-radius: 4px;
+        font-weight: 600;
+
+        transition: opacity 0.2s, top 0.2s;
+    }
+}
+
+.small-action {
+    border-radius: var(--small-actions-border-radius);
+    background-color: var(--info-box-color-lighter);
+    height: 36px;
+    position: relative;
+    padding: 0 10px;
+    display: flex;
+    gap: 4px;
+
+    &.add {
+        background-color: var(--main-color);
+        color: var(--color-reverse);
+        &:hover {
+            color: var(--color-reverse);
+            background-color: var(--main-color-lighter);
+        }
+    }
+
+    * {
+        font-size: 14px;
+    }
+
+    svg {
+        width: 14px;
+    }
+
+    &-border {
+        @extend .small-action;
+    }
+    &:is(button) {
+        color: var(--placeholder-color);
+        position: relative;
+        @extend .small-action-btn;
+    }
+
+    @extend .flex-center;
+
+    &.quick {
+        padding: 0;
+        background: none;
+        &:hover {
+            background: none;
+        }
+    }
+}
+
+.text-color-box {
+    @extend .rounded-full;
+    --box-c: var(--text-box-disabled);
+    background-color: hsl(var(--box-c) / var(--text-box-opacity));
+    color: hsl(var(--box-c));
+    padding: 0px 6px;
+    height: min-content;
+}
+
+input[type="checkbox"] {
+    &.table-cb {
+        appearance: none;
+        -webkit-appearance: none;
+        height: 18px;
+        width: 18px;
+        background-color: var(--cb-color);
+        border-radius: 2px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4px;
+
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: var(--cb-hover-color);
+        }
+
+        &:checked {
+            &:after {
+                opacity: 100%;
+            }
+        }
+
+        &:after {
+            transition: background-color 0.2s, opacity 0.2s;
+            content: "";
+            background-color: var(--main-color);
+            height: 100%;
+            width: 100%;
+            opacity: 0%;
+        }
+    }
+}
+
+.pannel-table {
+    padding: 0 10px;
+    color: var(--color);
+    position: relative;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, min-content);
+    overflow: scroll;
+    height: 100%;
+    grid-auto-rows: min-content;
+    * {
+        font-size: 14px;
+    }
+    > div {
+        height: 40px;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+
+        &.header {
+            z-index: 999;
+            background-color: var(--info-box-color-lighter);
+
+            text-transform: uppercase;
+            color: var(--title-color);
+            font-weight: 700;
+
+            position: sticky;
+            top: 0;
+
+            &:first-child {
+                border-top-left-radius: var(--small-actions-border-radius);
+                border-bottom-left-radius: var(--small-actions-border-radius);
+            }
+            &:not(:has(+ .header)) {
+                border-top-right-radius: var(--small-actions-border-radius);
+                border-bottom-right-radius: var(--small-actions-border-radius);
+            }
+        }
+
+        &:not(.header) {
+            border-bottom: solid var(--dash-color) 1.5px;
+        }
+    }
+}
+
+.table-loader {
+    position: absolute;
+    // top: 40px;
+    width: 100%;
+    height: 100% !important;
+    text-align: center;
+    border-bottom: 0px !important;
+}
+
+.modal-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(2px);
+    z-index: 9;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-input {
+    height: 40px;
+}
+
+// .hide-dash {
+//     display: none;
+//     position: absolute;
+// }
+
+// .hide-dash:hover ~ .object-row,
+// .object-row:hover,
+// .object-row:hover ~ .object-row,
+// .object-row:hover ~ .hide-dash {
+//     background-color: #e5e7eb; /* Серый цвет */
+// }
+
+// .object-row:hover,
+// .object-row:hover + .object-row {
+//     background-color: red;
+// }
+// .hide-dash + .object-row:hover ~ .object-row
+// .object-row:hover,
+// .object-row:hover ~ .object-row {
+//     background-color: red;
+// }
+
+// .empty-dash + .object-row:hover ~ .hide-dash,
+// .empty-dash + .object-row:hover ~ .hide-dash ~ .object-row {
+//     background-color: initial;
+// }
+
+.empty-dash + .object-row {
+    border-top-left-radius: var(--small-actions-border-radius);
+    border-bottom-left-radius: var(--small-actions-border-radius);
+}
+.object-row:has(+ .empty-dash) {
+    border-top-right-radius: var(--small-actions-border-radius);
+    border-bottom-right-radius: var(--small-actions-border-radius);
+}

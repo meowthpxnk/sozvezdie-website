@@ -1,0 +1,50 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
+.test.env
+!**/.test.env.example
+
+# Crypto / JWT keys
+*.pem
+!**/jwt_keys/README.md
+
+# Logs
+*.log
+LOGGING.LOG
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+build/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+.vercel/
+
+# Docker / local data
+postgres_data/
+minio_data/
+
+# Generated / downloaded seed assets (see backend/test_data.py)
+backend/test_data_images/

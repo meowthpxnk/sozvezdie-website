@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+    frontend:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://constellationshop.ru/api}
+                NEXT_PUBLIC_MEDIA_URL: ${NEXT_PUBLIC_MEDIA_URL:-https://constellationshop.ru/minio}
+                NEXT_PUBLIC_MEDIA_BUCKET_URL: ${NEXT_PUBLIC_MEDIA_BUCKET_URL:-https://constellationshop.ru/minio/images-bucket}
+                NEXT_PUBLIC_VKID_APP_ID: ${NEXT_PUBLIC_VKID_APP_ID:-54614063}
+                NEXT_PUBLIC_VKID_REDIRECT_URL: ${NEXT_PUBLIC_VKID_REDIRECT_URL:-https://constellationshop.ru}
+        container_name: sozvezdie-frontend
+        restart: unless-stopped
+        ports:
+            - "3002:3000"
+        environment:
+            NODE_ENV: production
+            PORT: 3000
+        networks:
+            - nginx_appnet
+networks:
+    nginx_appnet:
+        external: true

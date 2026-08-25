@@ -1,0 +1,118 @@
+.mcf {
+    color: var(--main-color);
+}
+
+.span-link {
+    color: #666;
+    text-underline-offset: 2px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+        text-decoration: underline;
+    }
+}
+
+.span-not-important {
+    color: #666;
+}
+
+.b-rad-6 {
+    border-radius: 6px;
+}
+
+.b-rad-8 {
+    border-radius: 8px;
+}
+
+.b-rad-14 {
+    border-radius: 14px;
+}
+
+.b-rad-10 {
+    border-radius: 10px;
+}
+
+.b-rad-12 {
+    border-radius: 12px;
+}
+
+.b-rad-inf {
+    border-radius: 9999px;
+}
+
+.image-box {
+    background-color: #f0f0f0;
+    overflow: hidden;
+
+    aspect-ratio: 1 / 1;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    img[src="none"] {
+        visibility: hidden;
+    }
+}
+
+.stl-mc {
+    color: var(--main-color);
+}
+
+.stl-fc {
+    color: var(--color);
+}
+
+.stl-mbc {
+    background-color: var(--main-color);
+}
+
+.int-4 {
+    --indentation: 6px;
+}
+
+.int-6 {
+    --indentation: 6px;
+}
+
+.int-8 {
+    --indentation: 8px;
+}
+
+.int-10 {
+    --indentation: 10px;
+}
+
+.int-12 {
+    --indentation: 12px;
+}
+
+.int-16 {
+    --indentation: 16px;
+}
+
+.int-20 {
+    --indentation: 20px;
+}
+
+.int-24 {
+    --indentation: 24px;
+}
+
+.indent-box-int-12 {
+    @extend .indent-box;
+    @extend .int-12;
+}
+
+.text-caption {
+    font-size: 11px;
+    line-height: 1;
+}
+
+.text-stock-label {
+    color: var(--product-stock-label-color);
+}

@@ -1,0 +1,47 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "react-jsx",
+        "incremental": true,
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./*"],
+            "@app/*": ["src/fsd/app/*"],
+            "@app": ["src/fsd/app/index.ts"],
+            "@pages/*": ["src/fsd/pages/*"],
+            "@pages": ["src/fsd/pages/index.ts"],
+            "@widgets/*": ["src/fsd/widgets/*"],
+            "@widgets": ["src/fsd/widgets/index.ts"],
+            "@features/*": ["src/fsd/features/*"],
+            "@features": ["src/fsd/features/index.ts"],
+            "@entities/*": ["src/fsd/entities/*"],
+            "@entities": ["src/fsd/entities/index.ts"],
+            "@shared/*": ["src/fsd/shared/*"],
+            "@shared": ["src/fsd/shared/index.ts"]
+        }
+    },
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts",
+        ".next/dev/types/**/*.ts",
+        "**/*.mts"
+    ],
+    "exclude": ["node_modules"]
+}
